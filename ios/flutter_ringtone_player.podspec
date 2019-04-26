@@ -10,7 +10,7 @@ A simple ringtone player plugin.
                        DESC
   s.homepage         = 'http://github.com/inway/flutter_ringtone_player'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'InWay.pro' => 'sebastian@podjasek.pl' }
+  s.author           = { 'InWay.pro' => 'info@inway.pro' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
