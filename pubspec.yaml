@@ -1,6 +1,6 @@
 name: flutter_ringtone_player
-description: Play ringtones
-version: 0.0.1
+description: A simple player for ringtones, alarms and notifications
+version: 1.0.0
 author: InWay.pro Team <info@inway.pro>
 homepage: https://github.com/inway/flutter_ringtone_player
 repository: https://github.com/inway/flutter_ringtone_player
