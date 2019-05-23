@@ -12,14 +12,9 @@
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-    if ([@"playAlarm" isEqualToString:call.method]) {
-        AudioServicesPlaySystemSound(1000);
-        result(nil);
-    } else if ([@"playNotification" isEqualToString:call.method]) {
-        AudioServicesPlaySystemSound(1000);
-        result(nil);
-    } else if ([@"playRingtone" isEqualToString:call.method]) {
-        AudioServicesPlaySystemSound(1000);
+    if ([@"play" isEqualToString:call.method]) {
+        NSNumber* soundId = call.arguments[@"ios"];
+        AudioServicesPlaySystemSound(soundId);
         result(nil);
     } else if ([@"stop" isEqualToString:call.method]) {
         result(nil);
