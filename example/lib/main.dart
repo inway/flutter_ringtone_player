@@ -41,7 +41,22 @@ class MyApp extends StatelessWidget {
                     FlutterRingtonePlayer.playRingtone();
                   },
                 ),
-              ),              Padding(
+              ),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: RaisedButton(
+                  child: const Text('play'),
+                  onPressed: () {
+                    FlutterRingtonePlayer.play(
+                      android: AndroidSounds.notification,
+                      ios: IosSounds.glass,
+                      looping: true,
+                      volume: 0.1,
+                    );
+                  },
+                ),
+              ),
+              Padding(
                 padding: EdgeInsets.all(8),
                 child: RaisedButton(
                   child: const Text('stop'),
