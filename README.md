@@ -18,20 +18,49 @@ Then simply call this to play system default notification sound:
 FlutterRingtonePlayer.playNotification();
 ```
 
-## Methods
+You can also specify some additional parameters (works only on Android with API 28 and above):
+
+```dart
+FlutterRingtonePlayer.playNotification(volume: 0.5, looping: true);
+```
+
+There's also this generic method allowing you to specify in detail what kind of ringtone should be played:
+
+```dart
+FlutterRingtonePlayer.play(
+  android: AndroidSounds.notification,
+  ios: IosSounds.glass,
+  looping: true,
+  volume: 0.1,
+);
+
+```
+
+To stop looped ringtone please use:
+
+```dart
+FlutterRingtonePlayer.stop();
+```
+
+Above works only on Android, and please note that by default Alarm & Ringtone sounds are looped.
+
+## Default sounds
 
 | Method           | Android | iOS |
 | ---------------- | ------- | --- |
-| playAlarm        | RingtoneManager.TYPE_ALARM | Plays MailReceived sound (new-mail.caf) |
-| playNotification | RingtoneManager.TYPE_NOTIFICATION | Plays MailReceived sound (new-mail.caf) |
-| playRingtone     | RingtoneManager.TYPE_RINGTONE | Plays MailReceived sound (new-mail.caf) |
-| stop             | Stop looped sounds | No-op |
+| playAlarm        | [System#DEFAULT_ALARM_ALERT_URI](https://developer.android.com/reference/android/provider/Settings.System.html#DEFAULT_ALARM_ALERT_URI) | IosSounds.horn |
+| playNotification | [System#DEFAULT_NOTIFICATION_URI](https://developer.android.com/reference/android/provider/Settings.System.html#DEFAULT_NOTIFICATION_URI) | IosSounds.triTone |
+| playRingtone     | [System#DEFAULT_RINGTONE_URI](https://developer.android.com/reference/android/provider/Settings.System.html#DEFAULT_RINGTONE_URI) | IosSounds.electronic |
 
 ### Note on iOS sounds
 
-On iOS you have to manualy choose sounds to be played. Current plugin defaults are shown above. 
-To change them edit `ios/Classes/FlutterRingtonePlayerPlugin.m` and replace value for `AudioServicesPlaySystemSound()`.
+If you want to use any other sound on iOS you can always specify a valid Sound ID and manually construct [IosSound]:
 
-You can find valid values here:
-* http://iphonedevwiki.net/index.php/AudioServices
-* https://github.com/TUNER88/iOSSystemSoundsLibrary
+```dart
+FlutterRingtonePlayer.play(
+  android: AndroidSounds.notification,
+  ios: const IosSound(1023),
+  looping: true,
+  volume: 0.1,
+);
+```
