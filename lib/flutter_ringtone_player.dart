@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 
 /// Simple player for system sounds like ringtones, alarms and notifications.
 class FlutterRingtonePlayer {
-
   /// Channel used to communicate to native code.
   static const MethodChannel _channel =
       const MethodChannel('flutter_ringtone_player');
