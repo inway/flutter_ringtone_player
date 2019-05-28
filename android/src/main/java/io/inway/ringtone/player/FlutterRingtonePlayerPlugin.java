@@ -40,11 +40,9 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler {
         try {
             Uri ringtoneUri = null;
 
-            if (call.method.equals("play")) {
-                if (!call.hasArgument("android")) {
-                    return result.notImplemented();
-                }
-
+            if (call.method.equals("play") && !call.hasArgument("android")) {
+                result.notImplemented();
+            } else if (call.method.equals("play")) {
                 final int kind = call.argument("android");
 
                 switch (kind) {
@@ -64,6 +62,8 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler {
                 if (ringtone != null) {
                     ringtone.stop();
                 }
+
+                result.success(null);
             }
 
             if (ringtoneUri != null) {
@@ -87,9 +87,9 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler {
                 }
 
                 ringtone.play();
-            }
 
-            result.success(null);
+                result.success(null);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             result.error("Exception", e.getMessage(), null);
