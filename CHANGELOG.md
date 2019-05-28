@@ -1,3 +1,7 @@
+## 1.0.2
+
+* Organize return & results logic to fix #1
+
 ## 1.0.1
 
 * Refactor API to allow arbitrary sound ID's on iOS
