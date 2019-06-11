@@ -30,13 +30,28 @@ class IosSound {
 class IosSounds {
   IosSounds._();
 
+  /// ![](new-mail.caf)
+  static const IosSound newMail = IosSound(1000);
+
+  /// ![](mail-sent.caf	)
+  static const IosSound mailSent = IosSound(1001);
+
+  /// ![](Voicemail.caf	)
+  static const IosSound voicemail = IosSound(1002);
+
   /// ![](ReceivedMessage.caf)
   static const IosSound receivedMessage = IosSound(1003);
 
   /// ![](SentMessage.caf)
   static const IosSound sentMessage = IosSound(1004);
 
-  /// ![](sms-received1.caf)
+  /// ![](alarm.caf)
+  static const IosSound alarm = IosSound(1005);
+
+  /// ![](low_power.caf	)
+  static const IosSound lowPower = IosSound(1006);
+
+  /// ![](SentMessage.caf)
   static const IosSound triTone = IosSound(1007);
 
   /// ![](sms-received2.caf)

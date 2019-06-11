@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
                       android: AndroidSounds.notification,
                       ios: IosSounds.glass,
                       looping: true,
-                      volume: 0.1,
+                      volume: 1.0,
                     );
                   },
                 ),

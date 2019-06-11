@@ -52,7 +52,7 @@ class FlutterRingtonePlayer {
   }) async =>
       play(
         android: AndroidSounds.alarm,
-        ios: IosSounds.horn,
+        ios: IosSounds.alarm,
         volume: volume,
         looping: looping,
       );

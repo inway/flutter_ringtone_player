@@ -13,8 +13,8 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
     if ([@"play" isEqualToString:call.method]) {
-        NSNumber* soundId = call.arguments[@"ios"];
-        AudioServicesPlaySystemSound(soundId);
+        NSNumber *soundId = (NSNumber *)call.arguments[@"ios"];
+        AudioServicesPlaySystemSound([soundId integerValue]);
         result(nil);
     } else if ([@"stop" isEqualToString:call.method]) {
         result(nil);
