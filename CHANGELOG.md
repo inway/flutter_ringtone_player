@@ -1,3 +1,7 @@
+## 1.0.3
+
+* Fix iOS issues
+
 ## 1.0.2
 
 * Organize return & results logic to fix #1
