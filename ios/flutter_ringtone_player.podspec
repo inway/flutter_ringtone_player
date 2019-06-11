@@ -4,7 +4,7 @@
 Pod::Spec.new do |s|
   s.name             = 'flutter_ringtone_player'
   s.version          = '0.0.1'
-  s.summary          = 'Simple ringto player plugin.'
+  s.summary          = 'Simple ringtone player plugin.'
   s.description      = <<-DESC
 A simple ringtone player plugin.
                        DESC
