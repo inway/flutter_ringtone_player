@@ -48,7 +48,7 @@ Above works only on Android, and please note that by default Alarm & Ringtone so
 
 | Method           | Android | iOS |
 | ---------------- | ------- | --- |
-| playAlarm        | [System#DEFAULT_ALARM_ALERT_URI](https://developer.android.com/reference/android/provider/Settings.System.html#DEFAULT_ALARM_ALERT_URI) | IosSounds.horn |
+| playAlarm        | [System#DEFAULT_ALARM_ALERT_URI](https://developer.android.com/reference/android/provider/Settings.System.html#DEFAULT_ALARM_ALERT_URI) | IosSounds.alarm |
 | playNotification | [System#DEFAULT_NOTIFICATION_URI](https://developer.android.com/reference/android/provider/Settings.System.html#DEFAULT_NOTIFICATION_URI) | IosSounds.triTone |
 | playRingtone     | [System#DEFAULT_RINGTONE_URI](https://developer.android.com/reference/android/provider/Settings.System.html#DEFAULT_RINGTONE_URI) | IosSounds.electronic |
 
