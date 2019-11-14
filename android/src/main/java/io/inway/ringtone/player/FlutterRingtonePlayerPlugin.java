@@ -71,6 +71,7 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler {
                     ringtone.stop();
                 }
                 ringtone = ringtoneManager.getRingtone(context, ringtoneUri);
+                ringtone.setStreamType(AudioManager.STREAM_ALARM);
 
                 if (call.hasArgument("volume")) {
                     final double volume = call.argument("volume");
