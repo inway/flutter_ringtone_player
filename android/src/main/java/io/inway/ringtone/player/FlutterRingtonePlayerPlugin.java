@@ -72,7 +72,6 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler {
                     ringtone.stop();
                 }
                 ringtone = ringtoneManager.getRingtone(context, ringtoneUri);
-                ringtone.setStreamType(AudioManager.STREAM_ALARM);
 
                 if (call.hasArgument("volume")) {
                     final double volume = call.argument("volume");
@@ -85,6 +84,20 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler {
                     final boolean looping = call.argument("looping");
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                         ringtone.setLooping(looping);
+                    }
+                }
+
+                if (call.hasArgument("asAlarm")) {
+                    final boolean asAlarm = call.argument("asAlarm");
+                    /* There's also a .setAudioAttributes method
+                       that is more flexible, but .setStreamType
+                       is supported in all Android versions
+                       whereas .setAudioAttributes needs SDK > 21.
+                       More on that at
+                       https://developer.android.com/reference/android/media/Ringtone
+                    */
+                    if (asAlarm) {
+                        ringtone.setStreamType(AudioManager.STREAM_ALARM);
                     }
                 }
 
