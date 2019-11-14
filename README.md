@@ -31,6 +31,15 @@ FlutterRingtonePlayer.play(
 
 ```
 
+### .play*() optional attributes
+
+| Attribute       |  Description |
+| --------------  | ------------ |
+| `bool` looping  | Enables looping of ringtone. Requires `FlutterRingtonePlayer.stop();` to stop ringing. |
+| `double` volume | Sets ringtone volume in range 0 to 1.0. |
+| `bool` asAlarm  | Allows to ignore device's silent/vibration mode and play given sound anyway. |
+
+
 To stop looped ringtone please use:
 
 ```dart
