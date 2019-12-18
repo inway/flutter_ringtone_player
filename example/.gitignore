@@ -65,6 +65,8 @@
 # Others
 **/ios/Podfile
 pubspec.lock
+.flutter-plugins-dependencies
+ios/Flutter/flutter_export_environment.sh
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
