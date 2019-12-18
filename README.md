@@ -18,23 +18,27 @@ Then simply call this to play system default notification sound:
 FlutterRingtonePlayer.playNotification();
 ```
 
-You can also specify some additional parameters (works only on Android with API 28 and above):
-
-```dart
-FlutterRingtonePlayer.playNotification(volume: 0.5, looping: true);
-```
-
 There's also this generic method allowing you to specify in detail what kind of ringtone should be played:
 
 ```dart
 FlutterRingtonePlayer.play(
   android: AndroidSounds.notification,
   ios: IosSounds.glass,
-  looping: true,
-  volume: 0.1,
+  looping: true, // Android only - API >= 28
+  volume: 0.1, // Android only - API >= 28
+  asAlarm: false, // Android only - all APIs
 );
 
 ```
+
+### .play*() optional attributes
+
+| Attribute       |  Description |
+| --------------  | ------------ |
+| `bool` looping  | Enables looping of ringtone. Requires `FlutterRingtonePlayer.stop();` to stop ringing. |
+| `double` volume | Sets ringtone volume in range 0 to 1.0. |
+| `bool` asAlarm  | Allows to ignore device's silent/vibration mode and play given sound anyway. |
+
 
 To stop looped ringtone please use:
 

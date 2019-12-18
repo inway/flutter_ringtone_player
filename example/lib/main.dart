@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 void main() => runApp(MyApp());
@@ -21,6 +20,15 @@ class MyApp extends StatelessWidget {
                   child: const Text('playAlarm'),
                   onPressed: () {
                     FlutterRingtonePlayer.playAlarm();
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: RaisedButton(
+                  child: const Text('playAlarm asAlarm: false'),
+                  onPressed: () {
+                    FlutterRingtonePlayer.playAlarm(asAlarm: false);
                   },
                 ),
               ),
