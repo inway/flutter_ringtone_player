@@ -6,6 +6,12 @@ A simple ringtone, alarm & notification player plugin.
 
 ## Usage
 
+Register service in AndroidManifest.xml:
+
+```xml
+<service android:name="io.inway.ringtone.player.FlutterRingtonePlayerService"/>
+```
+
 Add following import to your code:
 
 ```dart
