@@ -31,4 +31,8 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+
+    dependencies {
+        api 'androidx.annotation:annotation:1.1.0'
+    }
 }
