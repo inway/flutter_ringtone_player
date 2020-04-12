@@ -3,11 +3,14 @@ package io.inway.ringtone.player;
 import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+
+import java.util.Map;
 
 /**
  * FlutterRingtonePlayerPlugin
@@ -41,7 +44,6 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler {
                 result.success(null);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             result.error("Exception", e.getMessage(), null);
         }
     }
@@ -59,13 +61,31 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler {
         if (volume != null) {
             meta.setVolume(volume.floatValue());
         }
+
+        if (meta.getAsAlarm()) {
+            final String alarmNotificationMetaKey = "alarmNotificationMeta";
+
+            if (call.hasArgument(alarmNotificationMetaKey)) {
+                final Map<String, Object> notificationMetaValues = getMethodCallArgument(call, alarmNotificationMetaKey, Map.class);
+                final AlarmNotificationMeta notificationMeta = new AlarmNotificationMeta(notificationMetaValues);
+                meta.setAlarmNotificationMeta(notificationMeta);
+            } else {
+                throw new IllegalArgumentException("if asAlarm=true you have to deliver '" + alarmNotificationMetaKey + "'");
+            }
+        }
+
         return meta;
     }
 
     private void startRingtone(RingtoneMeta meta) {
         final Intent intent = createServiceIntent();
         intent.putExtra(FlutterRingtonePlayerService.RINGTONE_META_INTENT_EXTRA_KEY, meta);
-        context.startService(intent);
+
+        if (meta.getAsAlarm()) {
+            ContextCompat.startForegroundService(context, intent);
+        } else {
+            context.startService(intent);
+        }
     }
 
     private void stopRingtone() {

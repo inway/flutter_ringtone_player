@@ -6,6 +6,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ringtone_player/alarm_notification_meta.dart';
 
 import 'android_sounds.dart';
 import 'ios_sounds.dart';
@@ -27,6 +28,8 @@ class FlutterRingtonePlayer {
   /// [asAlarm] is an Android only flag that lets play given sound
   /// as an alarm, that is, phone will make sound even if
   /// it is in silent or vibration mode.
+  /// If sound is played as alarm the plugin will run the service in foreground.
+  /// Therefore you also have to set [alarmNotificationMeta].
   ///
   /// See also:
   ///  * [AndroidSounds]
@@ -36,7 +39,8 @@ class FlutterRingtonePlayer {
       @required IosSound ios,
       double volume,
       bool looping,
-      bool asAlarm}) async {
+      bool asAlarm,
+      AlarmNotificationMeta alarmNotificationMeta}) async {
     try {
       var args = <String, dynamic>{
         'android': android.value,
@@ -45,6 +49,7 @@ class FlutterRingtonePlayer {
       if (looping != null) args['looping'] = looping;
       if (volume != null) args['volume'] = volume;
       if (asAlarm != null) args['asAlarm'] = asAlarm;
+      if (alarmNotificationMeta != null) args['alarmNotificationMeta'] = alarmNotificationMeta.toMap();
 
       _channel.invokeMethod('play', args);
     } on PlatformException {}
@@ -52,13 +57,15 @@ class FlutterRingtonePlayer {
 
   /// Play default alarm sound (looping on Android)
   static Future<void> playAlarm(
-          {double volume, bool looping = true, bool asAlarm = true}) async =>
+          {double volume, bool looping = true, bool asAlarm = true, AlarmNotificationMeta alarmNotificationMeta}) async =>
       play(
           android: AndroidSounds.alarm,
           ios: IosSounds.alarm,
           volume: volume,
           looping: looping,
-          asAlarm: asAlarm);
+          asAlarm: asAlarm,
+          alarmNotificationMeta: alarmNotificationMeta,
+      );
 
   /// Play default notification sound
   static Future<void> playNotification(

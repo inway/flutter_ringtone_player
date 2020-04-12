@@ -7,6 +7,7 @@ public class RingtoneMeta implements Serializable {
     private Float volume;
     private Boolean looping;
     private Boolean asAlarm;
+    private AlarmNotificationMeta alarmNotificationMeta;
 
     public void setKind(int kind) {
         this.kind = kind;
@@ -28,15 +29,23 @@ public class RingtoneMeta implements Serializable {
         this.looping = looping;
     }
 
-    public Boolean getLooping() {
-        return looping;
+    public boolean getLooping() {
+        return Boolean.TRUE.equals(looping);
     }
 
     public void setAsAlarm(Boolean asAlarm) {
         this.asAlarm = asAlarm;
     }
 
-    public Boolean getAsAlarm() {
-        return asAlarm;
+    public boolean getAsAlarm() {
+        return Boolean.TRUE.equals(asAlarm);
+    }
+
+    public AlarmNotificationMeta getAlarmNotificationMeta() {
+        return alarmNotificationMeta;
+    }
+
+    public void setAlarmNotificationMeta(AlarmNotificationMeta alarmNotificationMeta) {
+        this.alarmNotificationMeta = alarmNotificationMeta;
     }
 }
