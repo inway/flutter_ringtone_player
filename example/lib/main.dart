@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ringtone_player/alarm_notification_meta.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 void main() => runApp(MyApp());
@@ -19,7 +20,10 @@ class MyApp extends StatelessWidget {
                 child: RaisedButton(
                   child: const Text('playAlarm'),
                   onPressed: () {
-                    FlutterRingtonePlayer.playAlarm();
+                    FlutterRingtonePlayer.playAlarm(
+                        alarmNotificationMeta: AlarmNotificationMeta(
+                            'io.inway.ringtone.player_example.MainActivity', 'ic_alarm_notification',
+                            contentTitle: 'Alarm', contentText: 'Alarm is active', subText: 'Subtext'));
                   },
                 ),
               ),
