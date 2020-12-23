@@ -6,6 +6,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'dart:io' show Platform;
 
 import 'android_sounds.dart';
 import 'ios_sounds.dart';
@@ -48,6 +49,27 @@ class FlutterRingtonePlayer {
 
       _channel.invokeMethod('play', args);
     } on PlatformException {}
+  }
+
+  static Future<void> playCustom({@required String sound}) async {
+    if (!Platform.isIOS) {
+      print("This only works for IOS");
+    } else {
+      try {
+        List parts = sound.split('.');
+        if (parts.length != 2) {
+          print("Invalid sound name. Try something like `example.wav`");
+          return;
+        } else if (!(parts[1] == "wav" ||
+            parts[1] == "aiff" ||
+            parts[1] == "caf")) {
+          print("Invalid extension. Apple supports .wav .aiff or .caf files.");
+        } else {
+          var args = <String, dynamic>{'name': parts[0], 'ext': parts[1]};
+          _channel.invokeMethod('playCustom', args);
+        }
+      } on PlatformException {}
+    }
   }
 
   /// Play default alarm sound (looping on Android)

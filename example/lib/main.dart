@@ -44,6 +44,15 @@ class MyApp extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(8),
                 child: RaisedButton(
+                  child: const Text('play custom notification'),
+                  onPressed: () {
+                    FlutterRingtonePlayer.playCustom(sound: "swiftly.wav");
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: RaisedButton(
                   child: const Text('playRingtone'),
                   onPressed: () {
                     FlutterRingtonePlayer.playRingtone();

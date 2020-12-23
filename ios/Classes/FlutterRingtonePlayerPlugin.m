@@ -16,6 +16,18 @@
         NSNumber *soundId = (NSNumber *)call.arguments[@"ios"];
         AudioServicesPlaySystemSound([soundId integerValue]);
         result(nil);
+    } else if([@"playCustom" isEqualToString:call.method]) {
+        NSString *name = (NSString *)call.arguments[@"name"];
+        NSString *ext = (NSString *)call.arguments[@"ext"];
+
+        SystemSoundID soundFileObject;
+        NSURL *soundFileURL = [[NSBundle mainBundle] URLForResource: name withExtension: ext];
+        CFURLRef soundFileURLRef = CFBridgingRetain(soundFileURL);
+
+        AudioServicesCreateSystemSoundID(soundFileURLRef, &soundFileObject);
+        AudioServicesPlayAlertSound(soundFileObject);
+        CFRelease(soundFileURLRef);
+
     } else if ([@"stop" isEqualToString:call.method]) {
         result(nil);
     } else {
