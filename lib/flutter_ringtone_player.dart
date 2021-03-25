@@ -4,7 +4,6 @@
 
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'android_sounds.dart';
@@ -32,11 +31,11 @@ class FlutterRingtonePlayer {
   ///  * [AndroidSounds]
   ///  * [IosSounds]
   static Future<void> play(
-      {@required AndroidSound android,
-      @required IosSound ios,
-      double volume,
-      bool looping,
-      bool asAlarm}) async {
+      {required AndroidSound android,
+      required IosSound ios,
+      double? volume,
+      bool? looping,
+      bool? asAlarm}) async {
     try {
       var args = <String, dynamic>{
         'android': android.value,
@@ -52,7 +51,7 @@ class FlutterRingtonePlayer {
 
   /// Play default alarm sound (looping on Android)
   static Future<void> playAlarm(
-          {double volume, bool looping = true, bool asAlarm = true}) async =>
+          {double? volume, bool looping = true, bool asAlarm = true}) async =>
       play(
           android: AndroidSounds.alarm,
           ios: IosSounds.alarm,
@@ -62,7 +61,7 @@ class FlutterRingtonePlayer {
 
   /// Play default notification sound
   static Future<void> playNotification(
-          {double volume, bool looping, bool asAlarm = false}) async =>
+          {double? volume, bool? looping, bool asAlarm = false}) async =>
       play(
           android: AndroidSounds.notification,
           ios: IosSounds.triTone,
@@ -72,7 +71,7 @@ class FlutterRingtonePlayer {
 
   /// Play default system ringtone (looping on Android)
   static Future<void> playRingtone(
-          {double volume, bool looping = true, bool asAlarm = false}) async =>
+          {double? volume, bool looping = true, bool asAlarm = false}) async =>
       play(
           android: AndroidSounds.ringtone,
           ios: IosSounds.electronic,
