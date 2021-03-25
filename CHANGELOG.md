@@ -1,3 +1,10 @@
+## 3.0.0
+
+Thanks to @andzejsw added:
+* Flutter 2.0 support
+* Null safety (breaking change)
+* androidx
+
 ## 2.0.0
 
 Breaking changes:
