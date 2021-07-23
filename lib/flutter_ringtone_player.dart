@@ -45,7 +45,8 @@ class FlutterRingtonePlayer {
       if (volume != null) args['volume'] = volume;
       if (asAlarm != null) args['asAlarm'] = asAlarm;
 
-      _channel.invokeMethod('play', args);
+      await Future.delayed(Duration(seconds: 1));
+	  _channel.invokeMethod('play', args);
     } on PlatformException {}
   }
 
