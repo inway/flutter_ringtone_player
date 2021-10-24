@@ -1,0 +1,26 @@
+# For original action take a look at https://github.com/fluttercommunity/plus_plugins.git
+name: flutter
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+
+      - name: "Analyze"
+        run: flutter analyze
