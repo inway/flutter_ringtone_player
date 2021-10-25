@@ -36,3 +36,6 @@ jobs:
 
       - name: "Show `analyze` output"
         run: flutter analyze .
+
+      - name: "Run tests"
+        run: flutter test -r expanded
