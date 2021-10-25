@@ -22,5 +22,9 @@ jobs:
       - name: "Install Tools"
         run: ./.github/workflows/scripts/install-tools.sh
 
-      - name: "Analyze"
-        run: flutter analyze
+      - name: "Show `doctor` output"
+        run: flutter doctor -v
+      - name: "Execute `pub get`"
+        run: flutter pub get -v
+      - name: "Show `analyze` output"
+        run: flutter analyze -v
