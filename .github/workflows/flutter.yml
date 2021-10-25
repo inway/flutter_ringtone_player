@@ -25,6 +25,7 @@ jobs:
       - name: "Show `doctor` output"
         run: flutter doctor -v
       - name: "Execute `pub get`"
-        run: flutter pub get -v
+        run: flutter pub get
       - name: "Show `analyze` output"
-        run: flutter analyze -v
+        if: ${{ false }}
+        run: flutter analyze
