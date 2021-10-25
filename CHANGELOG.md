@@ -1,3 +1,8 @@
+## 3.1.0 - UNRELEASED
+
+* Android V2 embedding (thanks to @aarajput)
+* Added `test` package to `dev_dependencies` to fix CI errors
+
 ## 3.0.0
 
 Thanks to @andzejsw added:
