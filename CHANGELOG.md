@@ -1,3 +1,8 @@
+## 3.1.1
+
+* Fix FileNotFoundException but notification is played #4 #29
+* Update docs to match changes from #29
+
 ## 3.1.0
 
 * Android V2 embedding (thanks to @aarajput)
