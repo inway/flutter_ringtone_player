@@ -68,13 +68,13 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler, FlutterPl
 
                 switch (kind) {
                     case 1:
-                        ringtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+                        ringtoneUri = ringtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
                         break;
                     case 2:
-                        ringtoneUri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                        ringtoneUri = ringtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
                         break;
                     case 3:
-                        ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI;
+                        ringtoneUri = ringtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
                         break;
                     default:
                         result.notImplemented();
