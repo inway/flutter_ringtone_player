@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  path_provider:
+
 dev_dependencies:
   test: ^1.16.8
   flutter_test:
