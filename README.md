@@ -29,7 +29,19 @@ FlutterRingtonePlayer.play(
   volume: 0.1, // Android only - API >= 28
   asAlarm: false, // Android only - all APIs
 );
+```  
 
+Also you can specify a custom ringtone from assets that works for both Android and iOS:
+```dart
+FlutterRingtonePlayer.play(fromAsset: "assets/ringtone.wav");  
+```  
+
+You can specify a platform specific ringtone and it will override the one from assets:
+```dart
+FlutterRingtonePlayer.play(  
+ fromAsset: "assets/ringtone.wav", // will be the sound on Android
+ ios: IosSounds.glass 			   // will be the sound on iOS
+ );  
 ```
 
 ### .play*() optional attributes

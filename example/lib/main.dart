@@ -53,6 +53,24 @@ class MyApp extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(8),
                 child: ElevatedButton(
+                  child: const Text('Play from asset (iphone.mp3)'),
+                  onPressed: () {
+                    FlutterRingtonePlayer.play(fromAsset: "assets/iphone.mp3");
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: ElevatedButton(
+                  child: const Text('Play from asset (android.wav)'),
+                  onPressed: () {
+                    FlutterRingtonePlayer.play(fromAsset: "assets/android.wav" );
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: ElevatedButton(
                   child: const Text('play'),
                   onPressed: () {
                     FlutterRingtonePlayer.play(
