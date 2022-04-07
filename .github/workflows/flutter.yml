@@ -1,0 +1,63 @@
+name: flutter
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }} using ${{ matrix.channel }} channel
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        channel: [stable, beta, dev, master]
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v2
+
+      - name: "Setup Java"
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+
+      - name: "Setup Flutter"
+        uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ matrix.channel }}
+
+      - run: dart --version
+      - run: flutter --version
+
+      - name: "Execute `pub get`"
+        run: flutter pub get
+
+      - name: "Show `doctor` output"
+        run: flutter doctor -v
+
+      - name: "Check code formatting issues"
+        run: flutter format --set-exit-if-changed .
+
+      - name: "Show `analyze` output"
+        run: flutter analyze .
+
+      - name: "Run tests"
+        run: flutter test -r expanded
+
+      - name: "Build APK"
+        run: flutter build apk
+        working-directory: ./example
+
+      - name: "Build AppBundle"
+        run: flutter build appbundle
+        working-directory: ./example
+
+      - name: "Build iOS"
+        if: ${{ startsWith(matrix.os, 'macos') }}
+        run: flutter build ios --release --no-codesign
+        working-directory: ./example

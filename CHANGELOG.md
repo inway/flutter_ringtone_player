@@ -1,3 +1,20 @@
+## 3.1.1
+
+* Fix FileNotFoundException but notification is played #4 #29
+* Update docs to match changes from #29
+
+## 3.1.0
+
+* Android V2 embedding (thanks to @aarajput)
+* Added `test` package to `dev_dependencies` to fix CI errors
+
+## 3.0.0
+
+Thanks to @andzejsw added:
+* Flutter 2.0 support
+* Null safety (breaking change)
+* androidx
+
 ## 2.0.0
 
 Breaking changes:

@@ -3,10 +3,11 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_ringtone_player/alarm_notification_meta.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'android_sounds.dart';
 import 'ios_sounds.dart';
@@ -20,7 +21,7 @@ export 'ios_sounds.dart';
 /// uses some hardcoded values for each type.
 class FlutterRingtonePlayer {
   static const MethodChannel _channel =
-      const MethodChannel('flutter_ringtone_player');
+      MethodChannel('flutter_ringtone_player');
 
   /// This is generic method allowing you to specify individual sounds
   /// you wish to be played for each platform
@@ -35,17 +36,32 @@ class FlutterRingtonePlayer {
   ///  * [AndroidSounds]
   ///  * [IosSounds]
   static Future<void> play(
-      {@required AndroidSound android,
-      @required IosSound ios,
-      double volume,
-      bool looping,
+      {@required AndroidSound? android,
+      @required IosSound? ios,
+      String? fromAsset,
+      double? volume,
+      bool? looping,
       bool asAlarm,
       AlarmNotificationMeta alarmNotificationMeta}) async {
+    if (fromAsset == null && android == null && ios == null) {
+      throw "Please specify the sound source.";
+    }
+    if (fromAsset == null) {
+      if (android == null) {
+        throw "Please specify android sound.";
+      }
+      if (ios == null) {
+        throw "Please specify ios sound.";
+      }
+    } else {
+      fromAsset = await _generateAssetUri(fromAsset);
+    }
+
     try {
-      var args = <String, dynamic>{
-        'android': android.value,
-        'ios': ios.value,
-      };
+      var args = <String, dynamic>{};
+      if (android != null) args['android'] = android.value;
+      if (ios != null) args['ios'] = ios.value;
+      if (fromAsset != null) args['uri'] = fromAsset;
       if (looping != null) args['looping'] = looping;
       if (volume != null) args['volume'] = volume;
       if (asAlarm != null) args['asAlarm'] = asAlarm;
@@ -58,6 +74,7 @@ class FlutterRingtonePlayer {
   /// Play default alarm sound (looping on Android)
   static Future<void> playAlarm(
           {double volume, bool looping = true, bool asAlarm = true, AlarmNotificationMeta alarmNotificationMeta}) async =>
+          {double? volume, bool looping = true, bool asAlarm = true}) async =>
       play(
           android: AndroidSounds.alarm,
           ios: IosSounds.alarm,
@@ -69,7 +86,7 @@ class FlutterRingtonePlayer {
 
   /// Play default notification sound
   static Future<void> playNotification(
-          {double volume, bool looping, bool asAlarm = false}) async =>
+          {double? volume, bool? looping, bool asAlarm = false}) async =>
       play(
           android: AndroidSounds.notification,
           ios: IosSounds.triTone,
@@ -79,7 +96,7 @@ class FlutterRingtonePlayer {
 
   /// Play default system ringtone (looping on Android)
   static Future<void> playRingtone(
-          {double volume, bool looping = true, bool asAlarm = false}) async =>
+          {double? volume, bool looping = true, bool asAlarm = false}) async =>
       play(
           android: AndroidSounds.ringtone,
           ios: IosSounds.electronic,
@@ -93,5 +110,27 @@ class FlutterRingtonePlayer {
     try {
       _channel.invokeMethod('stop');
     } on PlatformException {}
+  }
+
+  /// Generate asset uri according to platform.
+  static Future<String> _generateAssetUri(String asset) async {
+    if (Platform.isAndroid) {
+      // read local asset from rootBundle
+      final byteData = await rootBundle.load(asset);
+
+      // create a temporary file on the device to be read by the native side
+      final file = File('${(await getTemporaryDirectory()).path}/$asset');
+      await file.create(recursive: true);
+      await file.writeAsBytes(byteData.buffer.asUint8List());
+      return file.uri.path;
+    } else if (Platform.isIOS) {
+      if (!['wav', 'mp3', 'aiff', 'caf']
+          .contains(asset.split('.').last.toLowerCase())) {
+        throw 'Format not supported for iOS. Only mp3, wav, aiff and caf formats are supported.';
+      }
+      return asset;
+    } else {
+      return asset;
+    }
   }
 }

@@ -1,9 +1,13 @@
 package io.inway.ringtone.player;
 
+
 import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -15,21 +19,35 @@ import java.util.Map;
 /**
  * FlutterRingtonePlayerPlugin
  */
-public class FlutterRingtonePlayerPlugin implements MethodCallHandler {
-    private final Context context;
+public class FlutterRingtonePlayerPlugin implements MethodCallHandler, FlutterPlugin {
+    private Context context;
+    private MethodChannel methodChannel;
+    private RingtoneManager ringtoneManager;
+    private Ringtone ringtone;
 
-    public FlutterRingtonePlayerPlugin(Context context) {
-        this.context = context;
+    @Override
+    public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+        onAttachedToEngine(binding.getApplicationContext(), binding.getBinaryMessenger());
     }
 
-    /**
-     * Plugin registration.
-     */
-    public static void registerWith(Registrar registrar) {
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_ringtone_player");
-        channel.setMethodCallHandler(new FlutterRingtonePlayerPlugin(registrar.context()));
+    private void onAttachedToEngine(Context applicationContext, BinaryMessenger messenger) {
+        this.context = applicationContext;
+        this.ringtoneManager = new RingtoneManager(context);
+        this.ringtoneManager.setStopPreviousRingtone(true);
+
+        methodChannel = new MethodChannel(messenger, "flutter_ringtone_player");
+        methodChannel.setMethodCallHandler(this);
     }
 
+    @Override
+    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+        context = null;
+        methodChannel.setMethodCallHandler(null);
+        methodChannel = null;
+    }
+
+
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
         try {

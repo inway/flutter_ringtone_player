@@ -3,6 +3,7 @@
 A simple ringtone, alarm & notification player plugin.
 
 [![pub package](https://img.shields.io/pub/v/flutter_ringtone_player.svg)](https://pub.dartlang.org/packages/flutter_ringtone_player)
+[![flutter](https://github.com/inway/flutter_ringtone_player/actions/workflows/flutter.yml/badge.svg)](https://github.com/inway/flutter_ringtone_player/actions/workflows/flutter.yml)
 
 ## Usage
 
@@ -36,7 +37,19 @@ FlutterRingtonePlayer.play(
   volume: 0.1, // Android only - API >= 28
   asAlarm: false, // Android only - all APIs
 );
+```  
 
+Also you can specify a custom ringtone from assets that works for both Android and iOS:
+```dart
+FlutterRingtonePlayer.play(fromAsset: "assets/ringtone.wav");  
+```  
+
+You can specify a platform specific ringtone and it will override the one from assets:
+```dart
+FlutterRingtonePlayer.play(  
+ fromAsset: "assets/ringtone.wav", // will be the sound on Android
+ ios: IosSounds.glass 			   // will be the sound on iOS
+ );  
 ```
 
 ### .play*() optional attributes
@@ -61,9 +74,9 @@ Above works only on Android, and please note that by default Alarm & Ringtone so
 
 | Method           | Android | iOS |
 | ---------------- | ------- | --- |
-| playAlarm        | [System#DEFAULT_ALARM_ALERT_URI](https://developer.android.com/reference/android/provider/Settings.System.html#DEFAULT_ALARM_ALERT_URI) | IosSounds.alarm |
-| playNotification | [System#DEFAULT_NOTIFICATION_URI](https://developer.android.com/reference/android/provider/Settings.System.html#DEFAULT_NOTIFICATION_URI) | IosSounds.triTone |
-| playRingtone     | [System#DEFAULT_RINGTONE_URI](https://developer.android.com/reference/android/provider/Settings.System.html#DEFAULT_RINGTONE_URI) | IosSounds.electronic |
+| playAlarm        | [RingtoneManager.TYPE_ALARM](https://developer.android.com/reference/android/media/RingtoneManager#TYPE_ALARM) | IosSounds.alarm |
+| playNotification | [RingtoneManager.TYPE_NOTIFICATION](https://developer.android.com/reference/android/media/RingtoneManager#TYPE_NOTIFICATION) | IosSounds.triTone |
+| playRingtone     | [RingtoneManager.TYPE_RINGTONE](https://developer.android.com/reference/android/media/RingtoneManager#TYPE_RINGTONE) | IosSounds.electronic |
 
 ### Note on iOS sounds
 
