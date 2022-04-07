@@ -1,12 +1,13 @@
 package io.inway.ringtone.player;
 
+
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.Settings;
+
 
 import androidx.annotation.NonNull;
 
@@ -26,14 +27,6 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler, FlutterPl
     private MethodChannel methodChannel;
     private RingtoneManager ringtoneManager;
     private Ringtone ringtone;
-
-    /**
-     * Plugin registration.
-     */
-    @SuppressWarnings("deprecation")
-    public static void registerWith(Registrar registrar) {
-        new FlutterRingtonePlayerPlugin().onAttachedToEngine(registrar.context(), registrar.messenger());
-    }
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
@@ -56,28 +49,35 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler, FlutterPl
         methodChannel = null;
     }
 
+
+    @SuppressWarnings("ConstantConditions")
     @Override
-    public void onMethodCall(@NonNull MethodCall call,@NonNull Result result) {
+    public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
         try {
             Uri ringtoneUri = null;
+            if (call.method.equals("play")) {
+                if (call.hasArgument("uri")) {
+                    String uri = call.argument("uri");
+                    ringtoneUri = Uri.parse(uri);
+                }
 
-            if (call.method.equals("play") && !call.hasArgument("android")) {
-                result.notImplemented();
-            } else if (call.method.equals("play")) {
-                final int kind = call.argument("android");
+                // The androidSound overrides fromAsset if exists
+                if (call.hasArgument("android")) {
+                    int pref = call.argument("android");
+                    switch (pref) {
+                        case 1:
+                            ringtoneUri = ringtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
+                            break;
+                        case 2:
+                            ringtoneUri = ringtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
+                            break;
+                        case 3:
+                            ringtoneUri = ringtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
+                            break;
+                        default:
+                            result.notImplemented();
+                    }
 
-                switch (kind) {
-                    case 1:
-                        ringtoneUri = ringtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
-                        break;
-                    case 2:
-                        ringtoneUri = ringtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
-                        break;
-                    case 3:
-                        ringtoneUri = ringtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
-                        break;
-                    default:
-                        result.notImplemented();
                 }
             } else if (call.method.equals("stop")) {
                 if (ringtone != null) {
@@ -91,7 +91,7 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler, FlutterPl
                 if (ringtone != null) {
                     ringtone.stop();
                 }
-                ringtone = ringtoneManager.getRingtone(context, ringtoneUri);
+                ringtone = RingtoneManager.getRingtone(context, ringtoneUri);
 
                 if (call.hasArgument("volume")) {
                     final double volume = call.argument("volume");

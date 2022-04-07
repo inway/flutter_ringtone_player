@@ -12,10 +12,9 @@
 class AndroidSound {
   final int value;
 
-  const AndroidSound(int value)
+  const AndroidSound(this.value)
       : assert(value >= 1),
-        assert(value <= 3),
-        value = value;
+        assert(value <= 3);
 }
 
 /// Default [AndroidSound] values.
