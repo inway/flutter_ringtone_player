@@ -114,7 +114,6 @@ class FlutterRingtonePlayer {
       await file.create(recursive: true);
       await file.writeAsBytes(byteData.buffer.asUint8List());
       return file.uri.path;
-
     } else if (Platform.isIOS) {
       if (!['wav', 'mp3', 'aiff', 'caf']
           .contains(asset.split('.').last.toLowerCase())) {

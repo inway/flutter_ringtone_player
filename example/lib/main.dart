@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
                 child: ElevatedButton(
                   child: const Text('Play from asset (android.wav)'),
                   onPressed: () {
-                    FlutterRingtonePlayer.play(fromAsset: "assets/android.wav" );
+                    FlutterRingtonePlayer.play(fromAsset: "assets/android.wav");
                   },
                 ),
               ),
