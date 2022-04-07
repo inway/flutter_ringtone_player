@@ -7,22 +7,22 @@ name: Mark stale issues and pull requests
 
 on:
   schedule:
-  - cron: '22 0 * * *'
+    - cron: "22 0 * * *"
+  workflow_dispatch:
 
 jobs:
   stale:
-
     runs-on: ubuntu-latest
     permissions:
       issues: write
       pull-requests: write
 
     steps:
-    - uses: actions/stale@v5
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        debug-only: true
-        stale-issue-message: 'This issue has stalled.'
-        stale-pr-message: 'This pull request has stalled.'
-        stale-issue-label: 'no-issue-activity'
-        stale-pr-label: 'no-pr-activity'
+      - uses: actions/stale@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          debug-only: true
+          stale-issue-message: "This issue has stalled."
+          stale-pr-message: "This pull request has stalled."
+          stale-issue-label: "no-issue-activity"
+          stale-pr-label: "no-pr-activity"
