@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        channel: [stable, beta, dev, master]
+        channel: [stable, beta]
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v2
