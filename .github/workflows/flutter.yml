@@ -24,7 +24,9 @@ jobs:
       - name: "Setup Java"
         uses: actions/setup-java@v3
         with:
-          java-version: "12.x"
+          java-version: "12"
+          distribution: "temurin"
+          cache: "gradle"
 
       - name: "Setup Flutter"
         uses: subosito/flutter-action@v1
