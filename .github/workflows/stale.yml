@@ -10,19 +10,26 @@ on:
     - cron: "22 0 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   stale:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
 
     steps:
-      - uses: actions/stale@v5
+      - uses: actions/stale@v6
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          debug-only: true
+          days-before-stale: 180
+          days-before-close: 30
+          exempt-all-pr-milestones: true
           stale-issue-message: "This issue has stalled."
           stale-pr-message: "This pull request has stalled."
-          stale-issue-label: "no-issue-activity"
-          stale-pr-label: "no-pr-activity"
+          stale-issue-label: "stale"
+          stale-pr-label: "stale"
+          close-issue-message: "This issue has been closed due to inactivity."
+          close-pr-message: "This pull request has been closed due to inactivity."
+          ascending: true
