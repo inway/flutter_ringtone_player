@@ -5,8 +5,8 @@ homepage: https://github.com/inway/flutter_ringtone_player
 repository: https://github.com/inway/flutter_ringtone_player
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.10.0"
+  sdk: ">=2.18.6 <3.0.0"
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:
