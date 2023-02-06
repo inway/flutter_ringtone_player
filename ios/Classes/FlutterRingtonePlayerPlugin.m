@@ -4,6 +4,7 @@
 
 @implementation FlutterRingtonePlayerPlugin
 NSObject <FlutterPluginRegistrar> *pluginRegistrar = nil;
+bool shouldLoop = false;
 
 + (void)registerWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar {
     pluginRegistrar = registrar;
@@ -31,17 +32,31 @@ NSObject <FlutterPluginRegistrar> *pluginRegistrar = nil;
             soundId = (SystemSoundID) [call.arguments[@"ios"] integerValue];
         }
 
-        AudioServicesPlaySystemSound(soundId);
+        if(call.arguments[@"looping"] != nil){
+            shouldLoop = call.arguments[@"looping"];
+        }
+        
+        _PlaySystemSound(soundId);
+        
         if (soundFileURLRef != nil) {
             CFRelease(soundFileURLRef);
         }
 
         result(nil);
     } else if ([@"stop" isEqualToString:call.method]) {
+        shouldLoop = false;
         result(nil);
     } else {
         result(FlutterMethodNotImplemented);
     }
+}
+
+void _PlaySystemSound(SystemSoundID soundID) {
+    AudioServicesPlaySystemSoundWithCompletion(soundID, ^{
+        if(shouldLoop) {
+            _PlaySystemSound(soundID);
+        }
+    });
 }
 
 @end
