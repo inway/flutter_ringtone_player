@@ -7,6 +7,14 @@ A simple ringtone, alarm & notification player plugin.
 
 ## Usage
 
+Register service and add permission to AndroidManifest.xml:
+
+```xml
+<service android:name="io.inway.ringtone.player.FlutterRingtonePlayerService"/>
+
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+```
+
 Add following import to your code:
 
 ```dart
@@ -50,7 +58,8 @@ FlutterRingtonePlayer.play(
 | --------------  | ------------ |
 | `bool` looping  | Enables looping of ringtone. Requires `FlutterRingtonePlayer.stop();` to stop ringing. |
 | `double` volume | Sets ringtone volume in range 0 to 1.0. |
-| `bool` asAlarm  | Allows to ignore device's silent/vibration mode and play given sound anyway. |
+| `bool` asAlarm  | Allows to ignore device's silent/vibration mode and play given sound anyway. Because this will run the service in foreground you also have to set `alarmNotificationMeta`. |
+| `AlarmNotificationMeta` alarmNotificationMeta  | Sets further attributes for the alarm notification which will be created if the sound will be played as alarm. |
 
 
 To stop looped ringtone please use:

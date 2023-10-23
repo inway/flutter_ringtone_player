@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_ringtone_player/alarm_notification_meta.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'android_sounds.dart';
@@ -28,17 +29,20 @@ class FlutterRingtonePlayer {
   /// [asAlarm] is an Android only flag that lets play given sound
   /// as an alarm, that is, phone will make sound even if
   /// it is in silent or vibration mode.
+  /// If sound is played as alarm the plugin will run the service in foreground.
+  /// Therefore you also have to set [alarmNotificationMeta].
   ///
   /// See also:
   ///  * [AndroidSounds]
   ///  * [IosSounds]
   static Future<void> play(
-      {AndroidSound? android,
-      IosSound? ios,
+      {@required AndroidSound? android,
+      @required IosSound? ios,
       String? fromAsset,
       double? volume,
       bool? looping,
-      bool? asAlarm}) async {
+      bool asAlarm,
+      AlarmNotificationMeta alarmNotificationMeta}) async {
     if (fromAsset == null && android == null && ios == null) {
       throw "Please specify the sound source.";
     }
@@ -52,6 +56,7 @@ class FlutterRingtonePlayer {
     } else {
       fromAsset = await _generateAssetUri(fromAsset);
     }
+
     try {
       var args = <String, dynamic>{};
       if (android != null) args['android'] = android.value;
@@ -60,6 +65,7 @@ class FlutterRingtonePlayer {
       if (looping != null) args['looping'] = looping;
       if (volume != null) args['volume'] = volume;
       if (asAlarm != null) args['asAlarm'] = asAlarm;
+      if (alarmNotificationMeta != null) args['alarmNotificationMeta'] = alarmNotificationMeta.toMap();
 
       _channel.invokeMethod('play', args);
     } on PlatformException {}
@@ -67,13 +73,16 @@ class FlutterRingtonePlayer {
 
   /// Play default alarm sound (looping on Android)
   static Future<void> playAlarm(
+          {double volume, bool looping = true, bool asAlarm = true, AlarmNotificationMeta alarmNotificationMeta}) async =>
           {double? volume, bool looping = true, bool asAlarm = true}) async =>
       play(
           android: AndroidSounds.alarm,
           ios: IosSounds.alarm,
           volume: volume,
           looping: looping,
-          asAlarm: asAlarm);
+          asAlarm: asAlarm,
+          alarmNotificationMeta: alarmNotificationMeta,
+      );
 
   /// Play default notification sound
   static Future<void> playNotification(

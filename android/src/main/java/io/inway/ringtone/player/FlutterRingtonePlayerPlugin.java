@@ -2,14 +2,9 @@ package io.inway.ringtone.player;
 
 
 import android.content.Context;
-import android.media.AudioManager;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
-
-
+import android.content.Intent;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
@@ -18,6 +13,8 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+
+import java.util.Map;
 
 /**
  * FlutterRingtonePlayerPlugin
@@ -54,80 +51,71 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler, FlutterPl
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
         try {
-            Uri ringtoneUri = null;
-            if (call.method.equals("play")) {
-                if (call.hasArgument("uri")) {
-                    String uri = call.argument("uri");
-                    ringtoneUri = Uri.parse(uri);
-                }
+            final String methodName = call.method;
 
-                // The androidSound overrides fromAsset if exists
-                if (call.hasArgument("android")) {
-                    int pref = call.argument("android");
-                    switch (pref) {
-                        case 1:
-                            ringtoneUri = ringtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM);
-                            break;
-                        case 2:
-                            ringtoneUri = ringtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION);
-                            break;
-                        case 3:
-                            ringtoneUri = ringtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
-                            break;
-                        default:
-                            result.notImplemented();
-                    }
-
-                }
-            } else if (call.method.equals("stop")) {
-                if (ringtone != null) {
-                    ringtone.stop();
-                }
-
+            if (methodName.equals("play")) {
+                final RingtoneMeta meta = createRingtoneMeta(call);
+                startRingtone(meta);
                 result.success(null);
-            }
-
-            if (ringtoneUri != null) {
-                if (ringtone != null) {
-                    ringtone.stop();
-                }
-                ringtone = RingtoneManager.getRingtone(context, ringtoneUri);
-
-                if (call.hasArgument("volume")) {
-                    final double volume = call.argument("volume");
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        ringtone.setVolume((float) volume);
-                    }
-                }
-
-                if (call.hasArgument("looping")) {
-                    final boolean looping = call.argument("looping");
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        ringtone.setLooping(looping);
-                    }
-                }
-
-                if (call.hasArgument("asAlarm")) {
-                    final boolean asAlarm = call.argument("asAlarm");
-                    /* There's also a .setAudioAttributes method
-                       that is more flexible, but .setStreamType
-                       is supported in all Android versions
-                       whereas .setAudioAttributes needs SDK > 21.
-                       More on that at
-                       https://developer.android.com/reference/android/media/Ringtone
-                    */
-                    if (asAlarm) {
-                        ringtone.setStreamType(AudioManager.STREAM_ALARM);
-                    }
-                }
-
-                ringtone.play();
-
+            } else if (methodName.equals("stop")) {
+                stopRingtone();
                 result.success(null);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             result.error("Exception", e.getMessage(), null);
         }
+    }
+
+    private RingtoneMeta createRingtoneMeta(MethodCall call) {
+        if (!call.hasArgument("android")) {
+            throw new IllegalArgumentException("android argument is missing");
+        }
+
+        final RingtoneMeta meta = new RingtoneMeta();
+        meta.setKind(getMethodCallArgument(call, "android", Integer.class));
+        meta.setLooping(getMethodCallArgument(call, "looping", Boolean.class));
+        meta.setAsAlarm(getMethodCallArgument(call, "asAlarm", Boolean.class));
+        final Double volume = getMethodCallArgument(call, "volume", Double.class);
+        if (volume != null) {
+            meta.setVolume(volume.floatValue());
+        }
+
+        if (meta.getAsAlarm()) {
+            final String alarmNotificationMetaKey = "alarmNotificationMeta";
+
+            if (call.hasArgument(alarmNotificationMetaKey)) {
+                final Map<String, Object> notificationMetaValues = getMethodCallArgument(call, alarmNotificationMetaKey, Map.class);
+                final AlarmNotificationMeta notificationMeta = new AlarmNotificationMeta(notificationMetaValues);
+                meta.setAlarmNotificationMeta(notificationMeta);
+            } else {
+                throw new IllegalArgumentException("if asAlarm=true you have to deliver '" + alarmNotificationMetaKey + "'");
+            }
+        }
+
+        return meta;
+    }
+
+    private void startRingtone(RingtoneMeta meta) {
+        final Intent intent = createServiceIntent();
+        intent.putExtra(FlutterRingtonePlayerService.RINGTONE_META_INTENT_EXTRA_KEY, meta);
+
+        if (meta.getAsAlarm()) {
+            ContextCompat.startForegroundService(context, intent);
+        } else {
+            context.startService(intent);
+        }
+    }
+
+    private void stopRingtone() {
+        final Intent intent = createServiceIntent();
+        context.stopService(intent);
+    }
+
+    private <ArgumentType> ArgumentType getMethodCallArgument(MethodCall call, String key, Class<ArgumentType> argumentTypeClass) {
+        return call.argument(key);
+    }
+
+    private Intent createServiceIntent() {
+        return new Intent(context, FlutterRingtonePlayerService.class);
     }
 }
