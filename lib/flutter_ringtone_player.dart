@@ -44,7 +44,7 @@ class FlutterRingtonePlayer {
       throw "Please specify the sound source.";
     }
     if (fromFile != null){
-        fromAsset = await _generateFileUri(fromFile)
+        fromAsset = await _generateFileUri(fromFile);
       } else if (fromAsset == null) {
       if (android == null) {
         throw "Please specify android sound.";
