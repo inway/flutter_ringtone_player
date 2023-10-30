@@ -40,7 +40,7 @@ class FlutterRingtonePlayer {
       double? volume,
       bool? looping,
       bool? asAlarm}) async {
-    if (fromAsset == null && android == null && ios == null) {
+    if (fromFile == null && fromAsset == null && android == null && ios == null) {
       throw "Please specify the sound source.";
     }
     if (fromFile != null){
