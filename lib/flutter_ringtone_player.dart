@@ -21,6 +21,7 @@ class FlutterRingtonePlayer {
     AndroidSound? android,
     IosSound? ios,
     String? fromAsset,
+    String? fromFile,
     double? volume,
     bool? looping,
     bool? asAlarm,
@@ -32,6 +33,7 @@ class FlutterRingtonePlayer {
       asAlarm: asAlarm,
       android: android,
       fromAsset: fromAsset,
+      fromFile: fromFile,
     );
   }
 

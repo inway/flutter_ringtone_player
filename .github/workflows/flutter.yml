@@ -19,7 +19,7 @@ jobs:
         channel: [stable, beta]
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: "Setup Java"
         uses: actions/setup-java@v3
@@ -43,7 +43,7 @@ jobs:
         run: flutter doctor -v
 
       - name: "Check code formatting issues"
-        run: flutter format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
 
       - name: "Show `analyze` output"
         run: flutter analyze .
