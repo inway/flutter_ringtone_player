@@ -1,3 +1,8 @@
+## 4.0.0
+
+- **BREAKING CHANGE** [#64](https://github.com/inway/flutter_ringtone_player/pull/64): support for Flutter 3.0 and Android Gradle plugin 8.1.3 - @bitsydarel
+- [#63](https://github.com/inway/flutter_ringtone_player/pull/63): add support for playing ringtones from direct path - @EngALAlfy
+
 ## 3.2.0
 
 Thanks to @GeorgeAmgad added:
