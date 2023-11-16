@@ -13,10 +13,9 @@
 class IosSound {
   final int value;
 
-  const IosSound(int value)
+  const IosSound(this.value)
       : assert(value >= 1000),
-        assert(value <= 2000),
-        value = value;
+        assert(value <= 2000);
 }
 
 /// Common values for [IosSound] as specified by file name.

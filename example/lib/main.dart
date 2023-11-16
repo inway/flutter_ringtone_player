@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,65 +17,67 @@ class MyApp extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: ElevatedButton(
                   child: const Text('playAlarm'),
                   onPressed: () {
-                    FlutterRingtonePlayer.playAlarm();
+                    FlutterRingtonePlayer().playAlarm();
                   },
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: ElevatedButton(
                   child: const Text('playAlarm asAlarm: false'),
                   onPressed: () {
-                    FlutterRingtonePlayer.playAlarm(asAlarm: false);
+                    FlutterRingtonePlayer().playAlarm(asAlarm: false);
                   },
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: ElevatedButton(
                   child: const Text('playNotification'),
                   onPressed: () {
-                    FlutterRingtonePlayer.playNotification();
+                    FlutterRingtonePlayer().playNotification();
                   },
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: ElevatedButton(
                   child: const Text('playRingtone'),
                   onPressed: () {
-                    FlutterRingtonePlayer.playRingtone();
+                    FlutterRingtonePlayer().playRingtone();
                   },
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: ElevatedButton(
                   child: const Text('Play from asset (iphone.mp3)'),
                   onPressed: () {
-                    FlutterRingtonePlayer.play(fromAsset: "assets/iphone.mp3");
+                    FlutterRingtonePlayer()
+                        .play(fromAsset: "assets/iphone.mp3");
                   },
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: ElevatedButton(
                   child: const Text('Play from asset (android.wav)'),
                   onPressed: () {
-                    FlutterRingtonePlayer.play(fromAsset: "assets/android.wav");
+                    FlutterRingtonePlayer()
+                        .play(fromAsset: "assets/android.wav");
                   },
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: ElevatedButton(
                   child: const Text('play'),
                   onPressed: () {
-                    FlutterRingtonePlayer.play(
+                    FlutterRingtonePlayer().play(
                       android: AndroidSounds.notification,
                       ios: IosSounds.glass,
                       looping: true,
@@ -83,11 +87,11 @@ class MyApp extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: ElevatedButton(
                   child: const Text('stop'),
                   onPressed: () {
-                    FlutterRingtonePlayer.stop();
+                    FlutterRingtonePlayer().stop();
                   },
                 ),
               ),
