@@ -30,6 +30,7 @@ abstract class FlutterRingtonePlayerPlatform extends PlatformInterface {
     AndroidSound? android,
     IosSound? ios,
     String? fromAsset,
+    String? fromFile,
     double? volume,
     bool? looping,
     bool? asAlarm,

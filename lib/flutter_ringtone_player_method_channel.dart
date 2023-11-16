@@ -26,6 +26,7 @@ class MethodChannelFlutterRingtonePlayer extends FlutterRingtonePlayerPlatform {
     AndroidSound? android,
     IosSound? ios,
     String? fromAsset,
+    String? fromFile,
     double? volume,
     bool? looping,
     bool? asAlarm,
@@ -33,7 +34,9 @@ class MethodChannelFlutterRingtonePlayer extends FlutterRingtonePlayerPlatform {
     if (fromAsset == null && android == null && ios == null) {
       throw "Please specify the sound source.";
     }
-    if (fromAsset == null) {
+    if (fromFile != null) {
+      fromAsset = await _generateFileUri(fromFile);
+    } else if (fromAsset == null) {
       if (android == null) {
         throw "Please specify android sound.";
       }
@@ -137,5 +140,17 @@ class MethodChannelFlutterRingtonePlayer extends FlutterRingtonePlayerPlatform {
     } else {
       return asset;
     }
+  }
+
+  /// Generate asset uri according to platform.
+  static Future<String> _generateFileUri(String asset) async {
+    if (Platform.isIOS) {
+      if (!['wav', 'mp3', 'aiff', 'caf']
+          .contains(asset.split('.').last.toLowerCase())) {
+        throw 'Format not supported for iOS. Only mp3, wav, aiff and caf formats are supported.';
+      }
+    }
+
+    return asset;
   }
 }
