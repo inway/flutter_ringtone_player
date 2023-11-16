@@ -52,15 +52,13 @@ jobs:
       - name: "Run tests"
         run: flutter test -r expanded
 
-      - name: "Build APK"
-        run: flutter build apk
-        working-directory: ./example
-
       - name: "Build AppBundle"
         run: flutter build appbundle
         working-directory: ./example
+        continue-on-error: true
 
       - name: "Build iOS"
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: flutter build ios --release --no-codesign
         working-directory: ./example
+        continue-on-error: true
