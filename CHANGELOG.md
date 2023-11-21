@@ -1,3 +1,7 @@
+## 4.0.0+1
+
+- Bump `plugin_platform_interface` version
+
 ## 4.0.0
 
 - **BREAKING CHANGE** [#64](https://github.com/inway/flutter_ringtone_player/pull/64): support for Flutter 3.0 and Android Gradle plugin 8.1.3 - @bitsydarel
