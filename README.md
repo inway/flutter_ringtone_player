@@ -50,7 +50,7 @@ FlutterRingtonePlayer().play(
  );  
 ```
 
-### .play*() optional attributes
+### .play() optional attributes
 
 | Attribute       |  Description |
 | --------------  | ------------ |
