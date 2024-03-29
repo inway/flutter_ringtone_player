@@ -17,13 +17,14 @@ export 'ios_sounds.dart';
 /// On Android it uses system default sounds for each ringtone type. On iOS it
 /// uses some hardcoded values for each type.
 class FlutterRingtonePlayer {
-  Future<void> play({
+ static Future<dynamic> play({
     AndroidSound? android,
     IosSound? ios,
     String? fromAsset,
     String? fromFile,
     double? volume,
     bool? looping,
+    int? repeatTime,
     bool? asAlarm,
   }) {
     return FlutterRingtonePlayerPlatform.instance.play(
@@ -31,6 +32,7 @@ class FlutterRingtonePlayer {
       volume: volume,
       looping: looping,
       asAlarm: asAlarm,
+      repeatTime: repeatTime,
       android: android,
       fromAsset: fromAsset,
       fromFile: fromFile,
@@ -38,7 +40,7 @@ class FlutterRingtonePlayer {
   }
 
   /// Play default alarm sound (looping on Android)
-  Future<void> playAlarm({
+ static  Future<void> playAlarm({
     double? volume,
     bool looping = true,
     bool asAlarm = true,
@@ -48,7 +50,7 @@ class FlutterRingtonePlayer {
   }
 
   /// Play default notification sound
-  Future<void> playNotification({
+ static Future<void> playNotification({
     double? volume,
     bool? looping,
     bool asAlarm = false,
@@ -58,7 +60,7 @@ class FlutterRingtonePlayer {
   }
 
   /// Play default system ringtone (looping on Android)
-  Future<void> playRingtone({
+ static Future<void> playRingtone({
     double? volume,
     bool looping = true,
     bool asAlarm = false,
@@ -69,7 +71,7 @@ class FlutterRingtonePlayer {
 
   /// Stop looping sounds like alarms & ringtones on Android.
   /// This is no-op on iOS.
-  Future<void> stop() {
-    return FlutterRingtonePlayerPlatform.instance.stop();
+ static Future<void> stop({String? soundId}) {
+    return FlutterRingtonePlayerPlatform.instance.stop(soundId);
   }
 }

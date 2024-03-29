@@ -22,9 +22,10 @@ FlutterRingtonePlayer().playNotification();
 There's also this generic method allowing you to specify in detail what kind of ringtone should be played:
 
 ```dart
-FlutterRingtonePlayer().play(
+var _soundId= await FlutterRingtonePlayer().play(
   android: AndroidSounds.notification,
   ios: IosSounds.glass,
+  repeatTime: 5, // Ios only 
   looping: true, // Android only - API >= 28
   volume: 0.1, // Android only - API >= 28
   asAlarm: false, // Android only - all APIs
@@ -35,16 +36,16 @@ Also you can specify a custom ringtone from assets, or provide direct path to fi
 both Android and iOS:
 
 ```dart
-FlutterRingtonePlayer().play(fromAsset: "assets/ringtone.wav");  
+var _soundId= await FlutterRingtonePlayer().play(fromAsset: "assets/ringtone.wav");  
 ```
 
 ```dart
-FlutterRingtonePlayer().play(fromFile: "assets/ringtone.wav");  
+var _soundId= await FlutterRingtonePlayer().play(fromFile: "assets/ringtone.wav");  
 ```
 
 You can specify a platform specific ringtone and it will override the one from assets:
 ```dart
-FlutterRingtonePlayer().play(  
+var _soundId= await FlutterRingtonePlayer().play(  
  fromAsset: "assets/ringtone.wav", // will be the sound on Android
  ios: IosSounds.glass 			   // will be the sound on iOS
  );  
@@ -52,20 +53,22 @@ FlutterRingtonePlayer().play(
 
 ### .play() optional attributes
 
-| Attribute       |  Description |
-| --------------  | ------------ |
-| `bool` looping  | Enables looping of ringtone. Requires `FlutterRingtonePlayer().stop();` to stop ringing. |
-| `double` volume | Sets ringtone volume in range 0 to 1.0. |
-| `bool` asAlarm  | Allows to ignore device's silent/vibration mode and play given sound anyway. |
+| Attribute         | Description                                                                              |
+|-------------------|------------------------------------------------------------------------------------------|
+| `bool` looping    | Enables looping of ringtone. Requires `FlutterRingtonePlayer().stop();` to stop ringing. |
+| `double` volume   | Sets ringtone volume in range 0 to 1.0.                                                  |
+| `int` repeatTime  | Sets ringtone loops on IOS                                                               |
+| `bool` asAlarm    | Allows to ignore device's silent/vibration mode and play given sound anyway.             |
 
 
 To stop looped ringtone please use:
 
 ```dart
-FlutterRingtonePlayer().stop();
+//pass soundId only for Ios
+FlutterRingtonePlayer().stop(soundId: _soundId);
 ```
 
-Above works only on Android, and please note that by default Alarm & Ringtone sounds are looped.
+Please note that by default Alarm & Ringtone sounds are looped.
 
 ## Default sounds
 
@@ -80,7 +83,7 @@ Above works only on Android, and please note that by default Alarm & Ringtone so
 If you want to use any other sound on iOS you can always specify a valid Sound ID and manually construct [IosSound]:
 
 ```dart
-FlutterRingtonePlayer().play(
+var _soundId= await FlutterRingtonePlayer().play(
   android: AndroidSounds.notification,
   ios: const IosSound(1023),
   looping: true,
