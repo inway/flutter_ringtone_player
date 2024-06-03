@@ -1,3 +1,13 @@
+## 4.0.0+3
+
+- Moved `flutter_lints` to `dev_dependencies` to resolve [#80](https://github.com/inway/flutter_ringtone_player/issues/80)
+- Update `compileSdkVersion` of example app by @rockerer [#78](https://github.com/inway/flutter_ringtone_player/pull/78)
+- Bump `flutter_lints` from 3.0.2 to 4.0.0 by @dependabot [#79](https://github.com/inway/flutter_ringtone_player/pull/79)
+
+## 4.0.0+2
+
+- Update README to match v4
+
 ## 4.0.0+1
 
 - Bump `plugin_platform_interface` version
