@@ -26,9 +26,10 @@ abstract class FlutterRingtonePlayerPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<void> play({
+  Future<dynamic> play({
     AndroidSound? android,
     IosSound? ios,
+    int? repeatTime,
     String? fromAsset,
     String? fromFile,
     double? volume,
@@ -67,7 +68,7 @@ abstract class FlutterRingtonePlayerPlatform extends PlatformInterface {
 
   /// Stop looping sounds like alarms & ringtones on Android.
   /// This is no-op on iOS.
-  Future<void> stop() {
+  Future<void> stop(String? soundId) async{
     throw UnimplementedError('stop() has not been implemented.');
   }
 }

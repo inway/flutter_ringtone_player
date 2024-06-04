@@ -14,7 +14,20 @@ NSObject <FlutterPluginRegistrar> *pluginRegistrar = nil;
     [registrar addMethodCallDelegate:instance channel:channel];
 }
 
+- (void)playSound:(SystemSoundID)soundId count:(int)count {
+    AudioServicesPlaySystemSoundWithCompletion(soundId, ^{
+//        NSLog(@"sound playing done ");
+        if (count > 1) {
+//            NSLog(@"sound loop....  %d",count);
+            [self playSound:soundId count:count - 1];
+        } else {
+            return;
+        }
+    });
+};
+
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
+
     if ([@"play" isEqualToString:call.method]) {
         SystemSoundID soundId = nil;
         CFURLRef soundFileURLRef = nil;
@@ -28,20 +41,29 @@ NSObject <FlutterPluginRegistrar> *pluginRegistrar = nil;
 
         // The iosSound overrides fromAsset if exists
         if (call.arguments[@"ios"] != nil) {
-            soundId = (SystemSoundID) [call.arguments[@"ios"] integerValue];
+            soundId = (SystemSoundID)
+            [call.arguments[@"ios"] integerValue];
         }
-
-        AudioServicesPlaySystemSound(soundId);
+        if (call.arguments[@"repeatTime"] != nil) {
+            int repeatTime = [call.arguments[@"repeatTime"] integerValue];
+            [self playSound:soundId count:repeatTime];
+        } else {
+            AudioServicesPlaySystemSound(soundId);
+        }
         if (soundFileURLRef != nil) {
             CFRelease(soundFileURLRef);
         }
-
-        result(nil);
+        NSString *soundIDString = [NSString stringWithFormat:@"%d", soundId];
+        result(soundIDString);
+//        result(nil);
     } else if ([@"stop" isEqualToString:call.method]) {
+        SystemSoundID
+        soundId = (SystemSoundID)
+        [call.arguments[@"soundId"] integerValue];
+        AudioServicesDisposeSystemSoundID(soundId);
         result(nil);
     } else {
         result(FlutterMethodNotImplemented);
     }
 }
-
 @end
