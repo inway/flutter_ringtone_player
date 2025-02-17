@@ -1,6 +1,6 @@
 name: flutter_ringtone_player
 description: A simple player for system default ringtones, alarms and notifications
-version: 4.0.0+3
+version: 4.0.0+4
 homepage: https://github.com/inway/flutter_ringtone_player
 repository: https://github.com/inway/flutter_ringtone_player
 
