@@ -1,3 +1,7 @@
+## 4.0.0+4
+
+- Removes references to Flutter v1 android embedding classes.
+
 ## 4.0.0+3
 
 - Moved `flutter_lints` to `dev_dependencies` to resolve [#80](https://github.com/inway/flutter_ringtone_player/issues/80)
