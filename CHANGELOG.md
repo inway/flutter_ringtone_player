@@ -1,3 +1,7 @@
+## 5.0.0-dev.1
+
+- **BREAKING CHANGE** [#77](https://github.com/inway/flutter_ringtone_player/pull/77): fix of deprecated API usage by @rockerer
+
 ## 4.0.0+4
 
 - Removes references to Flutter v1 android embedding classes.
