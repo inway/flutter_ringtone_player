@@ -2,6 +2,7 @@ package io.inway.ringtone.player;
 
 
 import android.content.Context;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -108,15 +109,8 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler, FlutterPl
 
                 if (call.hasArgument("asAlarm")) {
                     final boolean asAlarm = call.argument("asAlarm");
-                    /* There's also a .setAudioAttributes method
-                       that is more flexible, but .setStreamType
-                       is supported in all Android versions
-                       whereas .setAudioAttributes needs SDK > 21.
-                       More on that at
-                       https://developer.android.com/reference/android/media/Ringtone
-                    */
                     if (asAlarm) {
-                        ringtone.setStreamType(AudioManager.STREAM_ALARM);
+                        ringtone.setAudioAttributes( new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build() );
                     }
                 }
 
