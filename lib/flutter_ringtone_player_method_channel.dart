@@ -22,12 +22,13 @@ class MethodChannelFlutterRingtonePlayer extends FlutterRingtonePlayerPlatform {
   ///  * [AndroidSounds]
   ///  * [IosSounds]
   @override
-  Future<void> play({
+  Future<dynamic> play({
     AndroidSound? android,
     IosSound? ios,
     String? fromAsset,
     String? fromFile,
     double? volume,
+    int? repeatTime,
     bool? looping,
     bool? asAlarm,
   }) async {
@@ -54,8 +55,8 @@ class MethodChannelFlutterRingtonePlayer extends FlutterRingtonePlayerPlatform {
       if (looping != null) args['looping'] = looping;
       if (volume != null) args['volume'] = volume;
       if (asAlarm != null) args['asAlarm'] = asAlarm;
-
-      _channel.invokeMethod('play', args);
+      if (repeatTime != null) args['repeatTime'] = repeatTime;
+    return  _channel.invokeMethod('play', args);
     } on PlatformException {
       // Not handled
     }
@@ -112,9 +113,11 @@ class MethodChannelFlutterRingtonePlayer extends FlutterRingtonePlayerPlatform {
   /// Stop looping sounds like alarms & ringtones on Android.
   /// This is no-op on iOS.
   @override
-  Future<void> stop() async {
+  Future<void> stop(String? soundId) async {
     try {
-      _channel.invokeMethod('stop');
+      var args = <String, dynamic>{};
+      if (soundId != null) args['soundId'] = soundId;
+      _channel.invokeMethod('stop',args);
     } on PlatformException {
       // Not handled
     }
