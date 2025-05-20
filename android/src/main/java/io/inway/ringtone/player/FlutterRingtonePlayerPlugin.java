@@ -27,7 +27,7 @@ public class FlutterRingtonePlayerPlugin implements MethodCallHandler, FlutterPl
     private Context context;
     private MethodChannel methodChannel;
     private RingtoneManager ringtoneManager;
-    private Ringtone ringtone;
+    private static Ringtone ringtone;
     private MediaPlayer mediaPlayer;
 
     @Override
