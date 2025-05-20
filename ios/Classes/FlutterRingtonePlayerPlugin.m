@@ -1,9 +1,9 @@
 #import "FlutterRingtonePlayerPlugin.h"
 #import <AudioToolbox/AudioToolbox.h>
 
-
 @implementation FlutterRingtonePlayerPlugin
 NSObject <FlutterPluginRegistrar> *pluginRegistrar = nil;
+SystemSoundID currentSoundId = 0;
 
 + (void)registerWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar {
     pluginRegistrar = registrar;
@@ -16,7 +16,7 @@ NSObject <FlutterPluginRegistrar> *pluginRegistrar = nil;
 
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
     if ([@"play" isEqualToString:call.method]) {
-        SystemSoundID soundId = nil;
+        SystemSoundID soundId = 0;
         CFURLRef soundFileURLRef = nil;
 
         if (call.arguments[@"uri"] != nil) {
@@ -32,12 +32,17 @@ NSObject <FlutterPluginRegistrar> *pluginRegistrar = nil;
         }
 
         AudioServicesPlaySystemSound(soundId);
+        currentSoundId = soundId;
         if (soundFileURLRef != nil) {
             CFRelease(soundFileURLRef);
         }
 
         result(nil);
     } else if ([@"stop" isEqualToString:call.method]) {
+        if (currentSoundId != 0) {
+            AudioServicesDisposeSystemSoundID(currentSoundId);
+            currentSoundId = 0;
+        }
         result(nil);
     } else {
         result(FlutterMethodNotImplemented);
