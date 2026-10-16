@@ -1,6 +1,7 @@
 name: flutter_ringtone_player_advanced_example
 description: Demonstrates how to use the flutter_ringtone_player_advanced plugin.
 publish_to: 'none'
+version: 1.0.0+1
 
 environment:
   sdk: ">=3.0.3 <4.0.0"
