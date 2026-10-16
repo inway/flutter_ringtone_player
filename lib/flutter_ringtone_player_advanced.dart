@@ -4,7 +4,7 @@
 
 import 'dart:async';
 
-import 'package:flutter_ringtone_player/flutter_ringtone_player_platform_interface.dart';
+import 'package:flutter_ringtone_player_advanced/flutter_ringtone_player_platform_interface.dart';
 
 import 'android_sounds.dart';
 import 'ios_sounds.dart';

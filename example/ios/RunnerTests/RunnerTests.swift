@@ -2,7 +2,7 @@ import Flutter
 import UIKit
 import XCTest
 
-@testable import flutter_ringtone_player
+@testable import flutter_ringtone_player_advanced
 
 // This demonstrates a simple unit test of the Swift portion of this plugin's implementation.
 //

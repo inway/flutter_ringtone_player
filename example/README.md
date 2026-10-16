@@ -1,6 +1,6 @@
-# flutter_ringtone_player_example
+# flutter_ringtone_player_advanced_example
 
-Demonstrates how to use the flutter_ringtone_player plugin.
+Demonstrates how to use the flutter_ringtone_player_advanced plugin.
 
 ## Getting Started
 
