@@ -1,3 +1,7 @@
+## 5.0.1
+
+- Upgrade package dependencies (`flutter_lints` ^6.0.0)
+
 ## 5.0.0
 
 - **Package renamed** from `flutter_ringtone_player` to [`flutter_ringtone_player_advanced`](https://pub.dev/packages/flutter_ringtone_player_advanced) for independent publication on pub.dev

@@ -11,7 +11,7 @@ Community-maintained fork of [inway/flutter_ringtone_player](https://github.com/
 
 ```yaml
 dependencies:
-  flutter_ringtone_player_advanced: ^5.0.0
+  flutter_ringtone_player_advanced: ^5.0.1
 ```
 
 ## Migrating from `flutter_ringtone_player`
@@ -20,7 +20,7 @@ Replace the dependency name; Dart APIs stay the same. Only the import URI change
 
 ```yaml
 dependencies:
-  flutter_ringtone_player_advanced: ^5.0.0
+  flutter_ringtone_player_advanced: ^5.0.1
 ```
 
 ```dart
