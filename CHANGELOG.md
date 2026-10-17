@@ -1,3 +1,9 @@
+## 5.0.2
+
+- Upgrade `path_provider` and `plugin_platform_interface`
+- Allow `play(fromFile:)` without also passing asset or platform sounds ([#1](https://github.com/nafiskabbo/flutter_ringtone_player_advanced/issues/1), upstream [#70](https://github.com/inway/flutter_ringtone_player/issues/70))
+- Raise Android `compileSdk` to 36 ([#2](https://github.com/nafiskabbo/flutter_ringtone_player_advanced/issues/2), upstream [#98](https://github.com/inway/flutter_ringtone_player/issues/98))
+
 ## 5.0.1
 
 - Upgrade package dependencies (`flutter_lints` ^6.0.0)
