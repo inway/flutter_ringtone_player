@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_ringtone_player/android_sounds.dart';
-import 'package:flutter_ringtone_player/ios_sounds.dart';
+import 'package:flutter_ringtone_player_advanced/android_sounds.dart';
+import 'package:flutter_ringtone_player_advanced/ios_sounds.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'flutter_ringtone_player_platform_interface.dart';
@@ -31,7 +31,10 @@ class MethodChannelFlutterRingtonePlayer extends FlutterRingtonePlayerPlatform {
     bool? looping,
     bool? asAlarm,
   }) async {
-    if (fromAsset == null && android == null && ios == null) {
+    if (fromAsset == null &&
+        fromFile == null &&
+        android == null &&
+        ios == null) {
       throw "Please specify the sound source.";
     }
     if (fromFile != null) {

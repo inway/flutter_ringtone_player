@@ -1,4 +1,4 @@
-#import "FlutterRingtonePlayerPlugin.h"
+#import "./include/flutter_ringtone_player_advanced/FlutterRingtonePlayerPlugin.h"
 #import <AudioToolbox/AudioToolbox.h>
 
 @implementation FlutterRingtonePlayerPlugin

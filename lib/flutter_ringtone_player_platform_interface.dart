@@ -1,5 +1,5 @@
-import 'package:flutter_ringtone_player/android_sounds.dart';
-import 'package:flutter_ringtone_player/ios_sounds.dart';
+import 'package:flutter_ringtone_player_advanced/android_sounds.dart';
+import 'package:flutter_ringtone_player_advanced/ios_sounds.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'flutter_ringtone_player_method_channel.dart';

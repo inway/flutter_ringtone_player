@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+import 'package:flutter_ringtone_player_advanced/flutter_ringtone_player_advanced.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +12,10 @@ void main() {
   test('play', () async {
     _initializeFakeRingtoneChannel(channelName, 'play');
     await player.play(android: AndroidSounds.alarm, ios: IosSounds.alarm);
+  });
+  test('play fromFile', () async {
+    _initializeFakeRingtoneChannel(channelName, 'play');
+    await player.play(fromFile: '/tmp/alarm_sound.mp3');
   });
   test('playAlarm', () async {
     _initializeFakeRingtoneChannel(channelName, 'play');
