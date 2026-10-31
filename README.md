@@ -2,8 +2,30 @@
 
 A simple ringtone, alarm & notification player plugin.
 
-[![pub package](https://img.shields.io/pub/v/flutter_ringtone_player.svg)](https://pub.dartlang.org/packages/flutter_ringtone_player)
-[![flutter](https://github.com/inway/flutter_ringtone_player/actions/workflows/flutter.yml/badge.svg)](https://github.com/inway/flutter_ringtone_player/actions/workflows/flutter.yml)
+[![pub package](https://img.shields.io/pub/v/flutter_ringtone_player.svg)](https://pub.dev/packages/flutter_ringtone_player)
+[![flutter](https://github.com/nafiskabbo/flutter_ringtone_player/actions/workflows/flutter.yml/badge.svg)](https://github.com/nafiskabbo/flutter_ringtone_player/actions/workflows/flutter.yml)
+
+Community-maintained fork of [inway/flutter_ringtone_player](https://github.com/inway/flutter_ringtone_player), republished as **`flutter_ringtone_player`** on [pub.dev](https://pub.dev/packages/flutter_ringtone_player). Maintained by [Nafis Kabbo](https://github.com/nafiskabbo). Issues and pull requests are welcome at [nafiskabbo/flutter_ringtone_player](https://github.com/nafiskabbo/flutter_ringtone_player).
+
+## Installation
+
+```yaml
+dependencies:
+  flutter_ringtone_player: ^5.0.2
+```
+
+## Migrating from `flutter_ringtone_player`
+
+Replace the dependency name; Dart APIs stay the same. Only the import URI changes with the package name.
+
+```yaml
+dependencies:
+  flutter_ringtone_player: ^5.0.2
+```
+
+```dart
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+```
 
 ## Usage
 

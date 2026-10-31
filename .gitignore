@@ -5,5 +5,7 @@
 .packages
 .pub/
 
+.build/
+.swiftpm/
 build/
 pubspec.lock

@@ -13,6 +13,10 @@ void main() {
     _initializeFakeRingtoneChannel(channelName, 'play');
     await player.play(android: AndroidSounds.alarm, ios: IosSounds.alarm);
   });
+  test('play fromFile', () async {
+    _initializeFakeRingtoneChannel(channelName, 'play');
+    await player.play(fromFile: '/tmp/alarm_sound.mp3');
+  });
   test('playAlarm', () async {
     _initializeFakeRingtoneChannel(channelName, 'play');
     await player.playAlarm();

@@ -3,19 +3,17 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_ringtone_player'
-  s.version          = '0.0.1'
+  s.version          = '5.0.2'
   s.summary          = 'Simple ringtone player plugin.'
   s.description      = <<-DESC
 A simple ringtone player plugin.
                        DESC
-  s.homepage         = 'http://github.com/inway/flutter_ringtone_player'
+  s.homepage         = 'https://github.com/nafiskabbo/flutter_ringtone_player'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'InWay.pro' => 'info@inway.pro' }
+  s.author           = { 'Nafis Kabbo' => 'nafiskabbo30@gmail.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'flutter_ringtone_player/Sources/flutter_ringtone_player/**/*'
+  s.public_header_files = 'flutter_ringtone_player/Sources/flutter_ringtone_player/include/**/*.h'
   s.dependency 'Flutter'
-
-  s.ios.deployment_target = '8.0'
+  s.platform = :ios, '13.0'
 end
-
